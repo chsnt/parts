@@ -6,9 +6,9 @@ const { mdJSON } = require("./mdjson.js");
 
 const crypto = require("crypto");
 
-const ARRAY = require("oracledb").ARRAY;
-const OBJECT = require("oracledb").OBJECT;
-const STRING = require("oracledb").STRING;
+const { ARRAY } = require("oracledb");
+const { OBJECT } = require("oracledb");
+const { STRING } = require("oracledb");
 
 module.exports = {
   getUserID(req, res, data) {
@@ -99,10 +99,10 @@ module.exports = {
       requestDB(
         "access_token",
         `INSERT INTO "SYSTEM".AUTH_SESSIONS 
-        ( ID, ID_USER, DATE_BORN, DATE_EXPIRATION )
-        VALUES ( :id, (SELECT ID FROM "SYSTEM".AUTH_USERS WHERE login = :lgn ), 
+         ( ID, ID_USER, DATE_BORN, DATE_EXPIRATION )
+         VALUES ( :id, (SELECT ID FROM "SYSTEM".AUTH_USERS WHERE login = :lgn ), 
                  SYSTIMESTAMP, SYSTIMESTAMP + interval '${sessionConfig.cookieLifeTime.inMinutes}' minute 
-               )`,
+                )`,
         {
           id: { val: access_token, type: STRING, maxSize: 64 * 2 },
           lgn: { val: req.body.login, type: STRING, maxSize: 128 * 2 }
