@@ -93,7 +93,7 @@ module.exports = {
     });
   },
 
-  // Создание новой сессии
+  // Make new session
   makeNewSession(req, res, access_token) {
     return new Promise((resolve, reject) => {
       requestDB(
